@@ -34,7 +34,7 @@ class AnimalServices extends Services {
         const currentPage = page + 1;
         const nextPageURL =
           currentPage < numberOfPages
-            ? `http://localhost:3000/animals?page=${
+            ? `https://sgpec-server-side-app-production.up.railway.app/animals?page=${
                 currentPage + 1
               }&limit=${limit}`
             : null;
