@@ -104,65 +104,48 @@ class AnimalServices extends Services {
     newVetHistoricData
   ) {
     try {
-      let numberOfVetHistoricModifications = 0;
-      let numberOfNewRecordsInAnimalVaccinesTable = 0;
+      const arrOfAnimalsIds = Promise.all(
+        arrOfEarringsIds.map(async (earring) => {
+          const animalRecord = await datasource[this.modelName].findOne({
+            where: { earringId: earring },
+          });
 
-      //Recover all animals ids based on theyer earrings ids and save it on arrOfAnimalsIds variable:
-      let arrOfAnimalsIds = [];
-
-      for (let i = 0; i < arrOfEarringsIds.length; i++) {
-        const returnedAnimalRecord = await datasource[this.modelName].findOne({
-          where: {
-            earringId: arrOfEarringsIds[i],
-          },
-        });
-
-        if (!returnedAnimalRecord) {
-          return new NoRecords(
-            `O animal com brinco: ${arrOfEarringsIds[i]} não foi encontrado no banco, verifique se você digitou corretamente os números identificadores de cada animal.`
-          );
-        } else {
-          arrOfAnimalsIds.push(returnedAnimalRecord.id);
-        }
-      }
-
-      //If newVetHistoricData had been provided by the controller, it updates all passed animals vetHistoric data:
-      if (newVetHistoricData !== "") {
-        for (let l = 0; l < arrOfAnimalsIds.length; l++) {
-          const animalId = arrOfAnimalsIds[l];
-          const animal = await datasource[this.modelName].findByPk(animalId);
-
-          if (!animal) {
+          if (!animalRecord) {
             return new NoRecords(
-              `Erro ao atualiar histórico veterinário de id: ${animalId}`
+              `O animal com brinco: ${earring} não foi encontrado no banco, verifique se você digitou corretamente os números identificadores de cada animal.`
             );
-          } else {
-            const animalCurrentVetHistoric = animal.vetHistoric;
-            const newAnimalVetHistoric = `${animalCurrentVetHistoric}\n${newVetHistoricData}`;
-
-            const updated = await this.updateRecordByPk(
-              {
-                vetHistoric: newAnimalVetHistoric,
-              },
-              animalId
-            );
-
-            if (updated instanceof NoRecords) {
-              return updated;
-            }
           }
-        }
 
-        numberOfVetHistoricModifications = arrOfAnimalsIds.length;
+          return animalRecord.id;
+        })
+      );
+
+      if (newVetHistoricData && newVetHistoricData !== "") {
+        (await arrOfAnimalsIds).forEach(async (id) => {
+          const animal = await datasource[this.modelName].findByPk(id);
+
+          const animalCurrentVetHistoric = animal.vetHistoric;
+          const newAnimalVetHistoric = `${animalCurrentVetHistoric}\n${newVetHistoricData}`;
+
+          const updated = await this.updateRecordByPk(
+            {
+              vetHistoric: newAnimalVetHistoric,
+            },
+            id
+          );
+
+          if (updated instanceof NoRecords) {
+            return updated;
+          }
+        });
       }
 
-      //Automaticaly insert into animalVaccines table the new animals vaccines only if vaccinesInfoArr is populated:
-      if (vaccinesInfoArr.length > 0) {
-        for (let j = 0; j < arrOfAnimalsIds.length; j++) {
-          for (let k = 0; k < vaccinesInfoArr.length; k++) {
-            const applicationDate = vaccinesInfoArr[k].applicationDate;
-            const animalId = arrOfAnimalsIds[j];
-            const vaccineId = vaccinesInfoArr[k].vaccineId;
+      if (vaccinesInfoArr && vaccinesInfoArr.length > 0) {
+        (await arrOfAnimalsIds).forEach(async (id) => {
+          vaccinesInfoArr.forEach(async (vaccine) => {
+            const applicationDate = vaccine.applicationDate;
+            const animalId = id;
+            const vaccineId = vaccine.vaccineId;
 
             const createdRecord = await animalVaccinesService.createNewRecord({
               applicationDate: applicationDate,
@@ -173,16 +156,12 @@ class AnimalServices extends Services {
             if (!(createdRecord instanceof Success)) {
               return createdRecord;
             }
-          }
-        }
-
-        numberOfNewRecordsInAnimalVaccinesTable =
-          arrOfAnimalsIds.length * vaccinesInfoArr.length;
+          });
+        });
       }
 
       return {
-        vetHistoricModificationsNumber: numberOfVetHistoricModifications,
-        newAnimalVaccinesRecordsNumber: numberOfNewRecordsInAnimalVaccinesTable,
+        numberOfModifications: arrOfEarringsIds.length,
         message: "Registros modificados com sucesso!",
       };
     } catch (error) {
