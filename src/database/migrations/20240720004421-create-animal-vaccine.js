@@ -10,9 +10,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      applicationDate: {
-        type: Sequelize.DATEONLY,
-      },
       animalId: {
         type: Sequelize.INTEGER,
         references: {
@@ -28,6 +25,9 @@ module.exports = {
           key: "id",
         },
         onDelete: "CASCADE",
+      },
+      applicationDate: {
+        type: Sequelize.DATEONLY,
       },
       createdAt: {
         allowNull: false,

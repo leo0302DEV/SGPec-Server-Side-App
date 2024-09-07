@@ -1,9 +1,8 @@
 "use strict";
 /** @type {import('sequelize-cli').Migration} */
-
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("vaccines", {
+    await queryInterface.createTable("medicines", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,23 +12,10 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
       },
-      dosesNum: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      seasonAplic: {
+      indication: {
         type: Sequelize.STRING,
         allowNull: false,
-      },
-      indicationAplic: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      notes: {
-        type: Sequelize.STRING,
-        allowNull: true,
       },
       createdAt: {
         allowNull: false,
@@ -46,6 +32,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("vaccines");
+    await queryInterface.dropTable("medicines");
   },
 };

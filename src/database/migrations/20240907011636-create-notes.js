@@ -3,33 +3,29 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("vaccines", {
+    await queryInterface.createTable("notes", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      dosesNum: {
+      animalId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: "animals",
+          key: "id",
+        },
+        onDelete: "CASCADE",
       },
-      seasonAplic: {
-        type: Sequelize.STRING,
+      creationDate: {
+        type: Sequelize.DATEONLY,
         allowNull: false,
       },
-      indicationAplic: {
+      anotations: {
         type: Sequelize.STRING,
         allowNull: false,
-      },
-      notes: {
-        type: Sequelize.STRING,
-        allowNull: true,
       },
       createdAt: {
         allowNull: false,
@@ -45,7 +41,8 @@ module.exports = {
       },
     });
   },
+
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("vaccines");
+    await queryInterface.dropTable("notes");
   },
 };

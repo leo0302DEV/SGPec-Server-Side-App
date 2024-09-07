@@ -27,11 +27,6 @@ module.exports = {
         type: Sequelize.DATEONLY,
         allowNull: false,
       },
-      vetHistoric: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        defaultValue: "",
-      },
       sex: {
         type: Sequelize.STRING,
         allowNull: false,

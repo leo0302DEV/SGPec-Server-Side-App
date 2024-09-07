@@ -11,18 +11,28 @@ module.exports = (sequelize, DataTypes) => {
         },
       });
 
+      Animal.hasMany(models.Note, {
+        foreignKey: {
+          name: "animalId",
+        },
+      });
+
       Animal.belongsToMany(models.Vaccine, {
         through: models.AnimalVaccine,
       });
+
+      Animal.belongsToMany(models.Medicine, {
+        through: models.AnimalMed,
+      });
     }
   }
+
   Animal.init(
     {
       earringId: DataTypes.STRING,
       age: DataTypes.STRING,
       weight: DataTypes.NUMBER,
       registerDate: DataTypes.DATEONLY,
-      vetHistoric: DataTypes.STRING,
       sex: DataTypes.STRING,
       pregnantState: DataTypes.BOOLEAN,
     },
@@ -33,5 +43,6 @@ module.exports = (sequelize, DataTypes) => {
       paranoid: true,
     }
   );
+
   return Animal;
 };
