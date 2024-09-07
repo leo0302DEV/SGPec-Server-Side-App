@@ -2,10 +2,12 @@ const { Race } = require("../database/models");
 const datasource = require("../database/models");
 const Services = require("./Services.js");
 const AnimalVaccineServices = require("./AnimalVaccineServices.js");
+const NotesServices = require("./NoteServices.js");
 const NoRecords = require("../messages/NoRecords.js");
 const Success = require("../messages/Success.js");
 
 const animalVaccinesService = new AnimalVaccineServices();
+const notesServices = new NotesServices();
 
 class AnimalServices extends Services {
   constructor() {
@@ -66,7 +68,6 @@ class AnimalServices extends Services {
           "age",
           "weight",
           "registerDate",
-          "vetHistoric",
           "sex",
           "pregnantState",
         ],
@@ -77,22 +78,9 @@ class AnimalServices extends Services {
         return new NoRecords(
           `O registro com id: ${pk} não foi encontrado no banco.`
         );
-      } else {
-        const animalRecordVaccines =
-          await animalVaccinesService.catchOneAnimalVaccinesByPk(pk);
-
-        if (animalRecordVaccines instanceof NoRecords) {
-          return {
-            animalRecord: animalRecord,
-            animalRecordVaccines: [],
-          };
-        } else {
-          return {
-            animalRecord: animalRecord,
-            animalRecordVaccines: animalRecordVaccines,
-          };
-        }
       }
+
+      return { animalRecord: animalRecord };
     } catch (error) {
       throw error;
     }
@@ -121,22 +109,20 @@ class AnimalServices extends Services {
       );
 
       if (newVetHistoricData && newVetHistoricData !== "") {
+        const today = new Date();
+        const formattedDate =
+          today.getFullYear() +
+          "-" +
+          String(today.getMonth() + 1).padStart(2, "0") +
+          "-" +
+          String(today.getDate()).padStart(2, "0");
+
         (await arrOfAnimalsIds).forEach(async (id) => {
-          const animal = await datasource[this.modelName].findByPk(id);
-
-          const animalCurrentVetHistoric = animal.vetHistoric;
-          const newAnimalVetHistoric = `${animalCurrentVetHistoric}\n${newVetHistoricData}`;
-
-          const updated = await this.updateRecordByPk(
-            {
-              vetHistoric: newAnimalVetHistoric,
-            },
-            id
-          );
-
-          if (updated instanceof NoRecords) {
-            return updated;
-          }
+          await notesServices.createNewRecord({
+            animalId: id,
+            creationDate: formattedDate,
+            anotations: newVetHistoricData,
+          });
         });
       }
 
