@@ -25,7 +25,7 @@ class AnimalServices extends Services {
       ].findAndCountAll({
         limit: limit,
         offset: offset,
-        attributes: ["id", "earringId", "weight", "sex"],
+        attributes: ["id", "earringId", "weight", "sex", "registerDate"],
         include: [{ model: Race, attributes: ["raceName"] }],
       });
 
