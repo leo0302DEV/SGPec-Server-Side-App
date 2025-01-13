@@ -20,7 +20,7 @@ module.exports = {
         allowNull: false,
       },
       weight: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       registerDate: {

@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       earringId: DataTypes.STRING,
       age: DataTypes.STRING,
-      weight: DataTypes.NUMBER,
+      weight: DataTypes.STRING,
       registerDate: DataTypes.DATEONLY,
       sex: DataTypes.STRING,
       pregnantState: DataTypes.BOOLEAN,

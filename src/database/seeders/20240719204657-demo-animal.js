@@ -7,7 +7,7 @@ module.exports = {
       {
         earringId: "011",
         age: "12 a 24",
-        weight: 356,
+        weight: "356",
         registerDate: "2024-07-18",
         sex: "Fêmea",
         pregnantState: true,
@@ -18,7 +18,7 @@ module.exports = {
       {
         earringId: "098",
         age: "12 a 24",
-        weight: 356,
+        weight: "356",
         registerDate: "2024-07-18",
         sex: "Fêmea",
         pregnantState: true,
@@ -29,7 +29,7 @@ module.exports = {
       {
         earringId: "065",
         age: "12 a 24",
-        weight: 356,
+        weight: "356",
         registerDate: "2024-07-18",
         sex: "Fêmea",
         pregnantState: true,
@@ -40,7 +40,7 @@ module.exports = {
       {
         earringId: "078",
         age: "12 a 24",
-        weight: 356,
+        weight: "356",
         registerDate: "2024-07-18",
         sex: "Macho",
         pregnantState: false,
@@ -51,7 +51,7 @@ module.exports = {
       {
         earringId: "035",
         age: "12 a 24",
-        weight: 356,
+        weight: "356",
         registerDate: "2024-07-18",
         sex: "Macho",
         pregnantState: false,
