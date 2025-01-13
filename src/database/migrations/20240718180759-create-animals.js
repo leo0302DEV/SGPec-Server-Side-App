@@ -30,7 +30,7 @@ module.exports = {
       sex: {
         type: Sequelize.STRING,
         allowNull: false,
-        defaultValue: "f",
+        defaultValue: "Fêmea",
       },
       pregnantState: {
         type: Sequelize.BOOLEAN,

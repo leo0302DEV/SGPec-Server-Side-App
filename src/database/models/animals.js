@@ -35,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       registerDate: DataTypes.DATEONLY,
       sex: DataTypes.STRING,
       pregnantState: DataTypes.BOOLEAN,
+      raceId: DataTypes.INTEGER,
     },
     {
       sequelize,
