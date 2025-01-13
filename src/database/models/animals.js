@@ -4,13 +4,6 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Animal extends Model {
     static associate(models) {
-      Animal.belongsTo(models.Race, {
-        foreignKey: {
-          name: "raceId",
-          allowNull: false,
-        },
-      });
-
       Animal.hasMany(models.Note, {
         foreignKey: {
           name: "animalId",
@@ -35,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       registerDate: DataTypes.DATEONLY,
       sex: DataTypes.STRING,
       pregnantState: DataTypes.BOOLEAN,
-      raceId: DataTypes.INTEGER,
+      race: DataTypes.STRING,
     },
     {
       sequelize,

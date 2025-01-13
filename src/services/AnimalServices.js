@@ -25,8 +25,14 @@ class AnimalServices extends Services {
       ].findAndCountAll({
         limit: limit,
         offset: offset,
-        attributes: ["id", "earringId", "weight", "sex", "registerDate"],
-        include: [{ model: Race, attributes: ["raceName"] }],
+        attributes: [
+          "id",
+          "earringId",
+          "weight",
+          "sex",
+          "registerDate",
+          "race",
+        ],
       });
 
       if (paginatedRecordsInfoObj.count > 0) {
@@ -70,8 +76,8 @@ class AnimalServices extends Services {
           "registerDate",
           "sex",
           "pregnantState",
+          "race",
         ],
-        include: [{ model: Race, attributes: ["raceName"] }],
       });
 
       if (!animalRecord) {

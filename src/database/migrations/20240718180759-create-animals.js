@@ -37,14 +37,9 @@ module.exports = {
         allowNull: false,
         defaultValue: false,
       },
-      raceId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "races",
-          key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "SET NULL",
+      race: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
