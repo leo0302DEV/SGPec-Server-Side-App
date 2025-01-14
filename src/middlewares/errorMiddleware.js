@@ -19,6 +19,8 @@ function errorMiddleware(err, req, res, next) {
       "Verifique as chaves estrangeiras do objeto passado."
     ).sendMessage(res);
   } else {
+    console.log(req);
+
     new InternalErrors().sendMessage(res);
   }
 }

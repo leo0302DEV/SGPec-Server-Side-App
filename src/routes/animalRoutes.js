@@ -5,7 +5,7 @@ const router = new Router();
 const animalController = new AnimalController();
 
 router.get("/animals", (req, res, next) => {
-  animalController.catchPaginatedAnimalsRecords(req, res, next);
+  animalController.catchAll(req, res, next);
 });
 router.get("/animals/:id", (req, res, next) =>
   animalController.catchOne(req, res, next)

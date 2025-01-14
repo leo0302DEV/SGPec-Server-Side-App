@@ -9,25 +9,6 @@ class AnimalController extends Controller {
     super(animalServices);
   }
 
-  async catchPaginatedAnimalsRecords(req, res, next) {
-    const { limit, page } = req.query;
-
-    try {
-      const recordsPaginated = await animalServices.catchAllRecordsPaginated(
-        limit,
-        page
-      );
-
-      if (recordsPaginated instanceof NoRecords) {
-        next(recordsPaginated);
-      } else {
-        res.status(200).json(recordsPaginated);
-      }
-    } catch (error) {
-      next(error);
-    }
-  }
-
   async modifyRecordsInGroup(req, res, next) {
     const { earringsIds } = req.query;
     const { newVetHistoricData, vaccinesInfoArr } = req.body;

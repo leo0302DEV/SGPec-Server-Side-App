@@ -45,7 +45,9 @@ class Controller {
       );
 
       if (recordCreatedSuccesfully instanceof Success) {
-        res.status(201).send(recordCreatedSuccesfully.message);
+        res
+          .status(201)
+          .send(JSON.stringify({ message: recordCreatedSuccesfully.message }));
       }
     } catch (error) {
       next(error);
@@ -65,7 +67,9 @@ class Controller {
       if (updatedRecord instanceof NoRecords) {
         next(updatedRecord);
       } else if (updatedRecord instanceof Success) {
-        res.status(200).send(updatedRecord.message);
+        res
+          .status(200)
+          .send(JSON.stringify({ message: updatedRecord.message }));
       }
     } catch (error) {
       next(error);
@@ -81,7 +85,9 @@ class Controller {
       if (deletedRecord instanceof NoRecords) {
         next(deletedRecord);
       } else if (deletedRecord instanceof Success) {
-        res.status(200).send(deletedRecord.message);
+        res
+          .status(200)
+          .send(JSON.stringify({ message: deletedRecord.message }));
       }
     } catch (error) {
       next(error);

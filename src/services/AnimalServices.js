@@ -14,56 +14,6 @@ class AnimalServices extends Services {
     super("Animal");
   }
 
-  async catchAllRecordsPaginated(limitOfRecordsPerPage = 5, pageNumber = 1) {
-    try {
-      const limit = limitOfRecordsPerPage; //Number of records returned per page. Default value is 5.
-      const page = pageNumber - 1; //Number of the page. Default value is 0.
-      const offset = page * limit; //Number of records that it needs to ignore. Default value is (0 * 5) = 0.
-
-      const paginatedRecordsInfoObj = await datasource[
-        this.modelName
-      ].findAndCountAll({
-        limit: limit,
-        offset: offset,
-        attributes: [
-          "id",
-          "earringId",
-          "weight",
-          "sex",
-          "registerDate",
-          "race",
-        ],
-      });
-
-      if (paginatedRecordsInfoObj.count > 0) {
-        const totalRecords = paginatedRecordsInfoObj.count; //Total of records on that table in the database.
-        const returnedRowsArr = paginatedRecordsInfoObj.rows; //Array of returned rows.
-        const numberOfPages = Math.ceil(totalRecords / limit);
-        const currentPage = page + 1;
-        const nextPageURL =
-          currentPage < numberOfPages
-            ? `https://sgpec-server-side-app-production.up.railway.app/animals?page=${
-                currentPage + 1
-              }&limit=${limit}`
-            : null;
-
-        return {
-          totalRecords,
-          numberOfPages,
-          currentPage,
-          nextPageURL,
-          returnedRowsArr,
-        };
-      } else {
-        return new NoRecords(
-          `Ainda não há registros no banco. Crie novos registros para popular o sistema.`
-        );
-      }
-    } catch (error) {
-      throw error;
-    }
-  }
-
   async catchOneRecordByPk(pk) {
     try {
       const animalRecord = await datasource[this.modelName].findByPk(pk, {
