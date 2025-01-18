@@ -10,14 +10,11 @@ class AnimalController extends Controller {
   }
 
   async modifyRecordsInGroup(req, res, next) {
-    const { earringsIds } = req.query;
-    const { newVetHistoricData, vaccinesInfoArr } = req.body;
+    const { newVetHistoricData, vaccinesInfoArr, animalsIdsArr } = req.body;
 
     try {
-      const arrOfEarringsId = earringsIds.split(",");
-
       const resultObj = await animalServices.modifyRecordsInGroup(
-        arrOfEarringsId,
+        animalsIdsArr,
         vaccinesInfoArr,
         newVetHistoricData
       );

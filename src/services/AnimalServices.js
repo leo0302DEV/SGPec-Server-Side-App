@@ -43,27 +43,11 @@ class AnimalServices extends Services {
   }
 
   async modifyRecordsInGroup(
-    arrOfEarringsIds,
+    arrOfAnimalsIds,
     vaccinesInfoArr,
     newVetHistoricData
   ) {
     try {
-      const arrOfAnimalsIds = Promise.all(
-        arrOfEarringsIds.map(async (earring) => {
-          const animalRecord = await datasource[this.modelName].findOne({
-            where: { earringId: earring },
-          });
-
-          if (!animalRecord) {
-            return new NoRecords(
-              `O animal com brinco: ${earring} não foi encontrado no banco, verifique se você digitou corretamente os números identificadores de cada animal.`
-            );
-          }
-
-          return animalRecord.id;
-        })
-      );
-
       if (newVetHistoricData && newVetHistoricData !== "") {
         const today = new Date();
         const formattedDate =
