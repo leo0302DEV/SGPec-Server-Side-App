@@ -31,6 +31,25 @@ class AnimalController extends Controller {
       next(error);
     }
   }
+
+  async returnAllAboutAnAnimal(req, res, next) {
+    const { id } = req.params;
+
+    try {
+      const resultObj = await animalServices.returnAllAboutAnAnimal(id);
+
+      if (resultObj instanceof NoRecords) {
+        next(resultObj);
+      } else {
+        res.status(200).json({
+          status: 200,
+          ...resultObj,
+        });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = AnimalController;

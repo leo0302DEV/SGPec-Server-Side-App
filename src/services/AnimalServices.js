@@ -1,4 +1,4 @@
-const { Race } = require("../database/models");
+const { Vaccine, AnimalVaccine, Note } = require("../database/models");
 const datasource = require("../database/models");
 const Services = require("./Services.js");
 const AnimalVaccineServices = require("./AnimalVaccineServices.js");
@@ -37,6 +37,55 @@ class AnimalServices extends Services {
       }
 
       return { animalRecord: animalRecord };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async returnAllAboutAnAnimal(pk) {
+    try {
+      const returnedVaccines = await datasource["AnimalVaccine"].findAll({
+        where: {
+          animalId: pk,
+        },
+        attributes: ["id", "applicationDate"],
+        include: [
+          { model: Vaccine, attributes: ["id", "name", "indicationAplic"] },
+        ],
+      });
+
+      const returnedAnimalNotes = await datasource["Note"].findAll({
+        where: {
+          animalId: pk,
+        },
+        attributes: ["id", "creationDate", "anotations"],
+      });
+
+      const animalRecord = await datasource[this.modelName].findByPk(pk, {
+        paranoid: true,
+        attributes: [
+          "id",
+          "earringId",
+          "age",
+          "weight",
+          "registerDate",
+          "sex",
+          "pregnantState",
+          "race",
+        ],
+      });
+
+      if (!animalRecord) {
+        return new NoRecords(
+          `O registro com id: ${pk} não foi encontrado no banco.`
+        );
+      }
+
+      return {
+        animalRecord: animalRecord,
+        animalVaccines: returnedVaccines,
+        animalNotes: returnedAnimalNotes,
+      };
     } catch (error) {
       throw error;
     }

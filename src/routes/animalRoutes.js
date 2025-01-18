@@ -10,6 +10,9 @@ router.get("/animals", (req, res, next) => {
 router.get("/animals/:id", (req, res, next) =>
   animalController.catchOne(req, res, next)
 );
+router.get("/animals/all/:id", (req, res, next) =>
+  animalController.returnAllAboutAnAnimal(req, res, next)
+);
 router.post("/animals", (req, res, next) =>
   animalController.create(req, res, next)
 );
