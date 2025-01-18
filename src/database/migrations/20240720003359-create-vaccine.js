@@ -15,21 +15,9 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
-      dosesNum: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      seasonAplic: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       indicationAplic: {
         type: Sequelize.STRING,
         allowNull: false,
-      },
-      notes: {
-        type: Sequelize.STRING,
-        allowNull: true,
       },
       createdAt: {
         allowNull: false,

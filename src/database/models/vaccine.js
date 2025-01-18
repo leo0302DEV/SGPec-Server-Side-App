@@ -12,10 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   Vaccine.init(
     {
       name: DataTypes.STRING,
-      dosesNum: DataTypes.INTEGER,
-      seasonAplic: DataTypes.STRING,
       indicationAplic: DataTypes.STRING,
-      notes: DataTypes.STRING,
     },
     {
       sequelize,

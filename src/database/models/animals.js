@@ -13,10 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       Animal.belongsToMany(models.Vaccine, {
         through: models.AnimalVaccine,
       });
-
-      Animal.belongsToMany(models.Medicine, {
-        through: models.AnimalMed,
-      });
     }
   }
 
