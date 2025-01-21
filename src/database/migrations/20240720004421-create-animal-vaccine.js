@@ -6,12 +6,12 @@ module.exports = {
     await queryInterface.createTable("animalVaccines", {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
       },
       animalId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         references: {
           model: "animals",
           key: "id",
@@ -19,7 +19,7 @@ module.exports = {
         onDelete: "CASCADE",
       },
       vaccineId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         references: {
           model: "vaccines",
           key: "id",

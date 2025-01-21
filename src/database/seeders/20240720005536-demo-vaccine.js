@@ -1,4 +1,5 @@
 "use strict";
+const { v4: uuidv4 } = require("uuid");
 /** @type {import('sequelize-cli').Migration} */
 
 module.exports = {
@@ -7,30 +8,35 @@ module.exports = {
       "vaccines",
       [
         {
+          id: uuidv4(),
           name: "Vacina Aftosa",
           indicationAplic: "Proteção contra febre aftosa",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
+          id: uuidv4(),
           name: "Vacina Brucelose",
           indicationAplic: "Prevenção da brucelose",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
+          id: uuidv4(),
           name: "Vacina Clostridial",
           indicationAplic: "Proteção contra clostridioses",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
+          id: uuidv4(),
           name: "Vacina Leptospirose",
           indicationAplic: "Prevenção contra leptospirose",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
+          id: uuidv4(),
           name: "Vacina IBR/BVD",
           indicationAplic:
             "Proteção contra rinotraqueíte infecciosa bovina e diarreia viral bovina",
@@ -38,30 +44,35 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
+          id: uuidv4(),
           name: "Vacina Raiva",
           indicationAplic: "Prevenção contra raiva",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
+          id: uuidv4(),
           name: "Vacina Anaplasmose",
           indicationAplic: "Prevenção da anaplasmose bovina",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
+          id: uuidv4(),
           name: "Vacina Tétano",
           indicationAplic: "Proteção contra tétano",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
+          id: uuidv4(),
           name: "Vacina Botulismo",
           indicationAplic: "Prevenção contra botulismo",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
+          id: uuidv4(),
           name: "Vacina Raiva Herbívoro",
           indicationAplic: "Proteção contra raiva em herbívoros",
           createdAt: new Date(),

@@ -6,12 +6,12 @@ module.exports = {
     await queryInterface.createTable("notes", {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
       },
       animalId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         allowNull: false,
         references: {
           model: "animals",
@@ -24,7 +24,7 @@ module.exports = {
         allowNull: false,
       },
       anotations: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false,
       },
       createdAt: {
