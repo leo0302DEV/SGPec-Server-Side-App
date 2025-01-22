@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Note.init(
     {
-      animalId: DataTypes.UUID,
+      animalId: DataTypes.INTEGER,
       creationDate: DataTypes.DATEONLY,
       anotations: DataTypes.TEXT,
     },
