@@ -16,6 +16,7 @@ class Controller {
         res.status(200).json(allRecords);
       }
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
@@ -32,6 +33,7 @@ class Controller {
         res.status(200).json(record);
       }
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
@@ -50,6 +52,7 @@ class Controller {
           .send(JSON.stringify({ message: recordCreatedSuccesfully.message }));
       }
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
@@ -72,6 +75,7 @@ class Controller {
           .send(JSON.stringify({ message: updatedRecord.message }));
       }
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
@@ -90,6 +94,7 @@ class Controller {
           .send(JSON.stringify({ message: deletedRecord.message }));
       }
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }

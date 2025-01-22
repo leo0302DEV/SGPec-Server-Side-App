@@ -22,6 +22,7 @@ class AnimalVaccineController extends Controller {
         res.status(200).json(returnedAnimalVaccines);
       }
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }

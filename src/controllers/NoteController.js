@@ -21,6 +21,7 @@ class NoteController extends Controller {
         res.status(200).json(notes);
       }
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
