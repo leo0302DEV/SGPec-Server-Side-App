@@ -90,59 +90,6 @@ class AnimalServices extends Services {
       throw error;
     }
   }
-
-  async modifyRecordsInGroup(
-    arrOfAnimalsIds,
-    vaccinesInfoArr,
-    newVetHistoricData
-  ) {
-    try {
-      if (newVetHistoricData && newVetHistoricData !== "") {
-        const today = new Date();
-        const formattedDate =
-          today.getFullYear() +
-          "-" +
-          String(today.getMonth() + 1).padStart(2, "0") +
-          "-" +
-          String(today.getDate()).padStart(2, "0");
-
-        (await arrOfAnimalsIds).forEach(async (id) => {
-          await notesServices.createNewRecord({
-            animalId: id,
-            creationDate: formattedDate,
-            anotations: newVetHistoricData,
-          });
-        });
-      }
-
-      if (vaccinesInfoArr && vaccinesInfoArr.length > 0) {
-        (await arrOfAnimalsIds).forEach(async (id) => {
-          vaccinesInfoArr.forEach(async (vaccine) => {
-            const applicationDate = vaccine.applicationDate;
-            const animalId = id;
-            const vaccineId = vaccine.vaccineId;
-
-            const createdRecord = await animalVaccinesService.createNewRecord({
-              applicationDate: applicationDate,
-              AnimalId: animalId,
-              VaccineId: vaccineId,
-            });
-
-            if (!(createdRecord instanceof Success)) {
-              return createdRecord;
-            }
-          });
-        });
-      }
-
-      return {
-        numberOfModifications: arrOfEarringsIds.length,
-        message: "Registros modificados com sucesso!",
-      };
-    } catch (error) {
-      throw error;
-    }
-  }
 }
 
 module.exports = AnimalServices;

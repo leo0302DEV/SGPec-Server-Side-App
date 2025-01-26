@@ -5,13 +5,13 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable("notes", {
       id: {
-        allowNull: false,
+        type: Sequelize.UUID,
         primaryKey: true,
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: false,
       },
       animalId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         allowNull: false,
         references: {
           model: "animals",

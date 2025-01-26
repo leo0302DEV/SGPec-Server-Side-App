@@ -9,29 +9,6 @@ class AnimalController extends Controller {
     super(animalServices);
   }
 
-  async modifyRecordsInGroup(req, res, next) {
-    const { newVetHistoricData, vaccinesInfoArr, animalsIdsArr } = req.body;
-
-    try {
-      const resultObj = await animalServices.modifyRecordsInGroup(
-        animalsIdsArr,
-        vaccinesInfoArr,
-        newVetHistoricData
-      );
-
-      if (resultObj instanceof NoRecords) {
-        next(resultObj);
-      } else {
-        res.status(200).json({
-          status: 200,
-          ...resultObj,
-        });
-      }
-    } catch (error) {
-      next(error);
-    }
-  }
-
   async returnAllAboutAnAnimal(req, res, next) {
     const { id } = req.params;
 

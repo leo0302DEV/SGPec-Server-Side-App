@@ -1,6 +1,7 @@
 const datasource = require("../database/models");
 const NoRecords = require("../messages/NoRecords.js");
 const Success = require("../messages/Success.js");
+const { v4: uuidv4 } = require("uuid");
 
 class Services {
   constructor(modelName) {
@@ -44,7 +45,11 @@ class Services {
 
   async createNewRecord(newRecordData) {
     try {
-      await datasource[this.modelName].create(newRecordData);
+      const newUUID = uuidv4();
+      await datasource[this.modelName].create({
+        id: newUUID,
+        ...newRecordData,
+      });
 
       return new Success("Novo registro criado com sucesso!");
     } catch (error) {
